@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classNames from "classnames";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Button,
   ButtonGroup,
@@ -21,50 +21,7 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
-
-// Chart options
-const chartOptions = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  tooltips: {
-    backgroundColor: "#f5f5f5",
-    titleFontColor: "#333",
-    bodyFontColor: "#666",
-    bodySpacing: 4,
-    xPadding: 12,
-    mode: "nearest",
-    intersect: 0,
-    position: "nearest",
-  },
-  responsive: true,
-  scales: {
-    yAxes: {
-      gridLines: {
-        drawBorder: false,
-        color: "rgba(29,140,248,0.1)",
-        zeroLineColor: "transparent",
-      },
-      ticks: {
-        suggestedMin: 0,
-        padding: 20,
-        fontColor: "#9a9a9a",
-      },
-    },
-    xAxes: {
-      gridLines: {
-        drawBorder: false,
-        color: "rgba(29,140,248,0.1)",
-        zeroLineColor: "transparent",
-      },
-      ticks: {
-        padding: 20,
-        fontColor: "#9a9a9a",
-      },
-    },
-  },
-};
+import { chartExample1, chartExample2 } from "variables/charts.js";
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -111,13 +68,8 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-    // Fetch data when component mounts
     fetchSolanaData();
-
-    // Set interval to update data every 15 minutes (900,000 ms)
     const intervalId = setInterval(fetchSolanaData, 900000);
-
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 
@@ -189,6 +141,23 @@ function Dashboard(props) {
                           <i className="tim-icons icon-tap-02" />
                         </span>
                       </Button>
+                      <Button
+                        color="info"
+                        id="3"
+                        size="sm"
+                        tag="label"
+                        className={classNames("btn-simple", {
+                          active: bigChartData === "data4",
+                        })}
+                        onClick={() => setBgChartData("data4")}
+                      >
+                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                          Solana
+                        </span>
+                        <span className="d-block d-sm-none">
+                          <i className="tim-icons icon-chart-bar-32" />
+                        </span>
+                      </Button>
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -197,7 +166,7 @@ function Dashboard(props) {
                 <div className="chart-area">
                   {bigChartData === "data1" && (
                     <Line
-                      data={chartExample1[bigChartData]}
+                      data={chartExample1.data1}
                       options={chartExample1.options}
                     />
                   )}
