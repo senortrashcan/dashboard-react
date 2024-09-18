@@ -19,7 +19,7 @@
 // // // Chart variables
 // #############################
 
-// chartExample1 and chartExample2 options
+// chartExample1 and chartExample62 options
 let chart1_2_options = {
   maintainAspectRatio: false,
   legend: {
