@@ -21,7 +21,7 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
-import { chartExample1, chartExample2 } from "variables/charts.js";
+import { chartExample1, chartExample2, chartExample3, chartExample4 } from "variables/charts.js";
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -180,12 +180,6 @@ function Dashboard(props) {
                     <Line
                       data={chartExample3.data}
                       options={chartExample3.options}
-                    />
-                  )}
-                  {bigChartData === "data4" && solanaChartData && (
-                    <Line
-                      data={solanaChartData}
-                      options={chartOptions}
                     />
                   )}
                 </div>
