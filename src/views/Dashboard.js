@@ -23,12 +23,16 @@ import {
 } from "reactstrap";
 import { chartExample1, chartExample2, chartExample3, chartExample4 } from "variables/charts.js";
 
-function Dashboard(props) {
-  const [bigChartData, setbigChartData] = React.useState("data1");
+const Dashboard = () => {
   const [solanaChartData, setSolanaChartData] = useState(null);
 
-  const setBgChartData = (name) => {
-    setbigChartData(name);
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+  };
+
+  const formatPrice = (price) => {
+    return parseFloat(price).toFixed(2);
   };
 
   const fetchSolanaData = async () => {
@@ -38,12 +42,11 @@ function Dashboard(props) {
       );
       const prices = response.data.data;
 
-      const labels = prices.map((priceData) => {
-        const date = new Date(priceData.time);
-        return date.toLocaleTimeString(); // Format time as you prefer
-      });
+      // Use only the last 15 data points
+      const last15DataPoints = prices.slice(-15);
 
-      const data = prices.map((priceData) => parseFloat(priceData.priceUsd));
+      const labels = last15DataPoints.map((priceData) => formatTime(priceData.time));
+      const data = last15DataPoints.map((priceData) => formatPrice(priceData.priceUsd));
 
       setSolanaChartData({
         labels: labels,
