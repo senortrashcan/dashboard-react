@@ -45,7 +45,7 @@ const Dashboard = () => {
       // Use only the last 15 data points
       const last15DataPoints = prices.slice(-15);
 
-      const labels = last15DataPoints.map((priceData) => formatTime(priceData.time));
+      const labels = last15DataPoints.map((priceData) => formatTime(priceData.date));
       const data = last15DataPoints.map((priceData) => formatPrice(priceData.priceUsd));
 
       setSolanaChartData({
